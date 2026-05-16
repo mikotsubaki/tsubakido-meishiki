@@ -8,64 +8,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-:root {
-  --camellia: #a82030;
-  --gold: #8a6520;
-  --green: #1e4a30;
-  --ink: #1e1a10;
-  --paper: #faf6ef;
-  --cream: #f0e8d8;
-  --cream2: #e8dcc8;
-  --blue-head: #d8e4f0;
-  --text: #1e1a10;
-  --text2: #3a3020;
-  --text3: #6a5a40;
-  --border: #c8b898;
-}
-html,body { min-height:100vh; background:#ede0cc; font-family:'Noto Serif JP',serif; color:var(--text); }
+html,body { min-height:100vh; background:#ede0cc; font-family:'Noto Serif JP',serif; color:#1e1a10; }
 
 /* ===== 入力画面 ===== */
-.input-screen {
-max-width:500px; margin:0 auto; padding:20px 16px 40px;
-}
-.input-header {
-text-align:center; padding:24px 0 20px; border-bottom:2px solid var(–camellia); margin-bottom:20px;
-}
-.input-header .logo { font-size:28px; font-weight:900; color:var(–camellia); letter-spacing:0.2em; }
-.input-header .sub  { font-size:11px; color:var(–gold); letter-spacing:0.3em; margin-top:4px; }
+.input-screen { max-width:500px; margin:0 auto; padding:20px 16px 40px; }
+.input-header { text-align:center; padding:24px 0 20px; border-bottom:2px solid #a82030; margin-bottom:20px; }
+.input-header .logo { font-size:28px; font-weight:900; color:#a82030; letter-spacing:0.2em; }
+.input-header .sub  { font-size:11px; color:#8a6520; letter-spacing:0.3em; margin-top:4px; }
 
 .form-card {
-background:rgba(255,255,255,0.85); border:1px solid var(–border);
+background:rgba(255,255,255,0.85); border:1px solid #c8b898;
 border-radius:12px; padding:20px; margin-bottom:14px;
 box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
-.form-section-title {
-font-size:11px; letter-spacing:0.3em; color:var(–gold); margin-bottom:14px; font-weight:500;
-}
+.form-section-title { font-size:11px; letter-spacing:0.3em; color:#8a6520; margin-bottom:14px; font-weight:500; }
 .form-row { margin-bottom:12px; }
-.form-label { font-size:11px; color:var(–text2); margin-bottom:5px; display:block; font-weight:500; letter-spacing:0.1em; }
+.form-label { font-size:11px; color:#3a3020; margin-bottom:5px; display:block; font-weight:500; letter-spacing:0.1em; }
 .form-inline { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
-.form-sep { font-size:13px; color:var(–green); font-weight:500; }
+.form-sep { font-size:13px; color:#1e4a30; font-weight:500; }
 
 select, input[type=text] {
-background:#fff; border:1px solid var(–border); border-radius:6px;
-color:var(–text); font-family:‘Noto Serif JP’,serif; font-size:14px;
+background:#fff; border:1px solid #c8b898; border-radius:6px;
+color:#1e1a10; font-family:‘Noto Serif JP’,serif; font-size:14px;
 padding:8px 10px; outline:none; appearance:auto; -webkit-appearance:auto;
 }
-select:focus, input:focus { border-color:var(–green); }
-select option { background:#fff; color:var(–text); }
+select:focus, input:focus { border-color:#1e4a30; }
+select option { background:#fff; color:#1e1a10; }
 input[type=text] { flex:1; }
 
 .gender-btns { display:flex; gap:8px; }
 .gender-btn {
-flex:1; padding:9px; border:1px solid var(–border); border-radius:6px;
+flex:1; padding:9px; border:1px solid #c8b898; border-radius:6px;
 background:#fff; font-family:‘Noto Serif JP’,serif; font-size:13px;
-color:var(–text2); cursor:pointer; text-align:center; transition:all 0.2s;
+color:#3a3020; cursor:pointer; text-align:center; transition:all 0.2s;
 }
-.gender-btn.active { background:var(–camellia); color:#fff; border-color:var(–camellia); font-weight:700; }
+.gender-btn.active { background:#a82030; color:#fff; border-color:#a82030; font-weight:700; }
 
 .btn-calc {
-width:100%; padding:14px; background:linear-gradient(135deg,var(–camellia),#7a1020);
+width:100%; padding:14px; background:linear-gradient(135deg,#a82030,#7a1020);
 border:none; border-radius:10px; color:#fff; font-family:‘Noto Serif JP’,serif;
 font-size:15px; font-weight:700; letter-spacing:0.3em; cursor:pointer;
 box-shadow:0 4px 16px rgba(168,32,48,0.3); transition:all 0.2s;
@@ -74,91 +54,71 @@ box-shadow:0 4px 16px rgba(168,32,48,0.3); transition:all 0.2s;
 
 /* ===== 結果画面 ===== */
 .result-screen { display:none; max-width:500px; margin:0 auto; padding:8px 8px 30px; }
-
-.result-header {
-text-align:center; padding:16px 0 12px;
-border-bottom:2px solid var(–camellia); margin-bottom:12px;
-}
-.result-header .name-line { font-size:16px; font-weight:700; color:var(–camellia); letter-spacing:0.1em; }
-.result-header .date-line { font-size:11px; color:var(–text3); margin-top:4px; letter-spacing:0.05em; }
+.result-header { text-align:center; padding:16px 0 12px; border-bottom:2px solid #a82030; margin-bottom:12px; }
+.result-header .name-line { font-size:16px; font-weight:700; color:#a82030; letter-spacing:0.1em; }
+.result-header .date-line { font-size:11px; color:#6a5a40; margin-top:4px; letter-spacing:0.05em; }
 
 .notice-box {
-background:#fffdf7; border:1px solid var(–border); color:var(–text2);
+background:#fffdf7; border:1px solid #c8b898; color:#3a3020;
 border-radius:8px; padding:8px 10px; font-size:10px; line-height:1.7; margin-bottom:12px;
 }
 
-/* 命式テーブル */
 .meishiki-wrap { overflow-x:auto; margin-bottom:12px; }
 .meishiki-table {
 width:100%; border-collapse:collapse;
-border:1.5px solid var(–border); background:var(–paper);
-font-size:11px;
+border:1.5px solid #c8b898; background:#faf6ef; font-size:11px;
 }
 .meishiki-table th, .meishiki-table td {
-border:1px solid var(–border); padding:4px 3px; text-align:center; vertical-align:middle;
+border:1px solid #c8b898; padding:4px 3px; text-align:center; vertical-align:middle;
 }
-.meishiki-table th { background:var(–blue-head); font-weight:700; font-size:11px; }
-.meishiki-table .row-label { background:var(–cream); font-size:10px; color:var(–text2); width:58px; }
+.meishiki-table th { background:#d8e4f0; font-weight:700; font-size:11px; }
+.meishiki-table .row-label { background:#f0e8d8; font-size:10px; color:#3a3020; width:58px; }
 .meishiki-table .nichi-col { background:#fff8f5; }
-.kan-big { font-size:17px; font-weight:900; color:var(–ink); }
-.kan-small { font-size:9px; color:var(–text3); }
+.kan-big { font-size:17px; font-weight:900; color:#1e1a10; }
+.kan-small { font-size:9px; color:#6a5a40; }
 .tsuhen-text { font-size:11px; font-weight:700; }
 .juniun-text { font-size:11px; }
 .kisatsu-text { font-size:9px; line-height:1.5; }
 
-/* 空亡・身旺 */
 .info-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
-.info-box {
-flex:1; min-width:120px; background:var(–paper); border:1px solid var(–border);
-border-radius:8px; padding:8px 10px;
-}
-.info-box-label { font-size:10px; color:var(–gold); letter-spacing:0.2em; margin-bottom:4px; }
-.info-box-value { font-size:12px; font-weight:700; color:var(–ink); }
+.info-box { flex:1; min-width:120px; background:#faf6ef; border:1px solid #c8b898; border-radius:8px; padding:8px 10px; }
+.info-box-label { font-size:10px; color:#8a6520; letter-spacing:0.2em; margin-bottom:4px; }
+.info-box-value { font-size:12px; font-weight:700; color:#1e1a10; }
 
-/* 干支生剋 */
 .section-title {
-font-size:11px; letter-spacing:0.3em; color:var(–gold); margin-bottom:8px;
+font-size:11px; letter-spacing:0.3em; color:#8a6520; margin-bottom:8px;
 display:flex; align-items:center; gap:8px;
 }
 .section-title::after { content:’’; flex:1; height:1px; background:rgba(138,101,32,0.3); }
 
 .kanshi-table {
 width:100%; border-collapse:collapse; margin-bottom:12px;
-background:var(–paper); border:1px solid var(–border); font-size:12px;
+background:#faf6ef; border:1px solid #c8b898; font-size:12px;
 }
-.kanshi-table th { background:var(–cream); padding:6px 8px; font-size:10px; border:1px solid var(–border); }
-.kanshi-table td { padding:6px 8px; border:1px solid var(–border); text-align:left; }
-.kanshi-table .row-label { background:var(–cream2); font-weight:700; text-align:center; width:80px; }
+.kanshi-table th { background:#f0e8d8; padding:6px 8px; font-size:10px; border:1px solid #c8b898; }
+.kanshi-table td { padding:6px 8px; border:1px solid #c8b898; text-align:left; }
+.kanshi-table .row-label { background:#e8dcc8; font-weight:700; text-align:center; width:80px; }
 
-/* 五行 */
 .gogyo-section { margin-bottom:12px; }
 .gogyo-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
-.gogyo-item {
-background:var(–paper); border:1px solid var(–border); border-radius:8px;
-padding:7px 3px; text-align:center;
-}
+.gogyo-item { background:#faf6ef; border:1px solid #c8b898; border-radius:8px; padding:7px 3px; text-align:center; }
 .gogyo-kanji { font-size:15px; font-weight:900; }
 .gogyo-count { font-size:17px; font-weight:900; margin-top:2px; }
 .moku { color:#2a7a2a; } .ka { color:#c03030; } .do { color:#9a7010; }
 .kin { color:#808020; } .sui { color:#2060a0; }
-.jiko-gogyo { font-size:13px; color:var(–text2); margin-top:8px; text-align:right; font-weight:500; }
+.jiko-gogyo { font-size:13px; color:#3a3020; margin-top:8px; text-align:right; font-weight:500; }
 
-/* 大運 */
-.daiaun-table {
-width:100%; border-collapse:collapse; font-size:11px;
-background:var(–paper); border:1px solid var(–border);
-}
-.daiaun-table th { background:var(–blue-head); padding:5px 3px; border:1px solid var(–border); font-size:10px; }
-.daiaun-table td { padding:5px 3px; border:1px solid var(–border); text-align:center; }
-.daiaun-table .current { background:#fff0e8; font-weight:700; color:var(–camellia); }
+.daiaun-table { width:100%; border-collapse:collapse; font-size:11px; background:#faf6ef; border:1px solid #c8b898; }
+.daiaun-table th { background:#d8e4f0; padding:5px 3px; border:1px solid #c8b898; font-size:10px; }
+.daiaun-table td { padding:5px 3px; border:1px solid #c8b898; text-align:center; }
+.daiaun-table .current { background:#fff0e8; font-weight:700; color:#a82030; }
 
 .btn-back {
-width:100%; padding:12px; background:transparent; border:1px solid var(–border);
-border-radius:8px; color:var(–green); font-family:‘Noto Serif JP’,serif;
+width:100%; padding:12px; background:transparent; border:1px solid #c8b898;
+border-radius:8px; color:#1e4a30; font-family:‘Noto Serif JP’,serif;
 font-size:13px; letter-spacing:0.2em; cursor:pointer; margin-top:8px;
 }
-
-.footer { text-align:center; padding:16px; font-size:9px; color:var(–text3); letter-spacing:0.2em; }
+.footer { text-align:center; padding:16px; font-size:9px; color:#6a5a40; letter-spacing:0.2em; }
 </style>
 
 </head>
