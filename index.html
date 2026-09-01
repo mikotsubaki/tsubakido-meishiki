@@ -545,6 +545,56 @@ input[type="color"] { padding: 2px; height: 40px; width: 70px; cursor: pointer; 
   letter-spacing: 0;
 }
 
+/* ---------- 日主（日干）と自己の五行 ---------- */
+.nisshu-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.nisshu-item {
+  background: var(--card-color);
+  border: 1px solid var(--table-line);
+  border-radius: 10px;
+  padding: 7px 8px;
+  text-align: center;
+}
+.nisshu-label {
+  display: block;
+  font-size: clamp(11px, 3vw, 13px);
+  color: var(--sub-text);
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+.nisshu-value {
+  display: block;
+  font-family: "Shippori Mincho B1", "Shippori Mincho", serif;
+  font-size: clamp(20px, 5.6vw, 26px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--accent);
+}
+.nisshu-value small {
+  display: block;
+  font-family: inherit;
+  font-size: clamp(9px, 2.5vw, 11px);
+  font-weight: 400;
+  color: var(--sub-text);
+  letter-spacing: 0;
+}
+.nisshu-value.g-木 { color: #4e7a3f; }
+.nisshu-value.g-火 { color: #b5293a; }
+.nisshu-value.g-土 { color: #a5762d; }
+.nisshu-value.g-金 { color: #7d7d72; }
+.nisshu-value.g-水 { color: #33566e; }
+
+/* 自己の五行のカードは枠を強調する */
+.gogyo-card.is-self {
+  border-color: var(--accent);
+  border-width: 2px;
+  box-shadow: 0 0 0 2px rgba(181, 41, 58, 0.08);
+}
+
 /* ---------- 五行バランス（木火土金水の横並びカード） ---------- */
 .gogyo-cards {
   display: flex;
@@ -810,6 +860,8 @@ input[type="color"] { padding: 2px; height: 40px; width: 70px; cursor: pointer; 
 
   <section class="card">
     <h2 class="card-title">五行バランス</h2>
+    <!-- 日主（日干）とその五行 -->
+    <div id="nisshuBox" class="nisshu-box"></div>
     <!-- 木火土金水の横並びカード -->
     <div id="gogyoCards" class="gogyo-cards"></div>
     <div id="gogyoDetail"></div>
@@ -1683,9 +1735,9 @@ function initForm() {
 
       // 生年月日：手入力欄（年・月・日）から読み取る
       // ※カレンダーで選んだ場合も、この3欄に自動反映されている
-      const y = $("inYearNum").value.trim();
-      const mo = $("inMonthNum").value.trim();
-      const d = $("inDayNum").value.trim();
+      const y = String($("inYearNum").value ?? "").trim();
+      const mo = String($("inMonthNum").value ?? "").trim();
+      const d = String($("inDayNum").value ?? "").trim();
       if (!y || !mo || !d) throw new Error("生年月日を入力してください（手入力、またはカレンダーボタンから選べます）。");
 
       const hourVal = $("inHour").value;
@@ -1798,8 +1850,22 @@ function render(r) {
     `判定：${r.shiou.getsureiText}（月柱十二運：${r.shiou.monthJuniun}）／ ${r.shiou.comment}`;
 
   // 五行バランス：木火土金水の横並びカード
+  // 日主（日干）と、その五行＝自己の五行
+  const dayStemName = STEMS[r.dayStem];
+  const selfElement = GOGYO_NAMES[stemElement(r.dayStem)];
+  const selfCount = r.gogyo.count[stemElement(r.dayStem)];
+  $("nisshuBox").innerHTML = `
+    <div class="nisshu-item">
+      <span class="nisshu-label">日主（日干）</span>
+      <span class="nisshu-value">${dayStemName}<small>${STEM_READING[dayStemName]}</small></span>
+    </div>
+    <div class="nisshu-item">
+      <span class="nisshu-label">自己の五行</span>
+      <span class="nisshu-value g-${selfElement}">${selfElement}<small>命式内に ${selfCount}</small></span>
+    </div>`;
+
   $("gogyoCards").innerHTML = GOGYO_NAMES.map((n, i) => `
-    <div class="gogyo-card g-${n}">
+    <div class="gogyo-card g-${n}${n === selfElement ? " is-self" : ""}">
       <span class="g-name">${n}</span>
       <span class="g-count">${r.gogyo.count[i]}</span>
     </div>`).join("");
@@ -1902,7 +1968,8 @@ function buildCopyText(r) {
   lines.push("", "神殺星：");
   const kMap = [["時柱", r.kisatsu.hour], ["日柱", r.kisatsu.day], ["月柱", r.kisatsu.month], ["年柱", r.kisatsu.year]];
   kMap.forEach(([nm2, list]) => lines.push(`${nm2}：${list.length ? list.join("・") : "ー"}`));
-  lines.push("", `五行バランス：${GOGYO_NAMES.map((n, i) => `${n}${r.gogyo.count[i]}`).join(" ")}`);
+  lines.push("", `日主（日干）：${STEMS[r.dayStem]}　自己の五行：${GOGYO_NAMES[stemElement(r.dayStem)]}`);
+  lines.push(`五行バランス：${GOGYO_NAMES.map((n, i) => `${n}${r.gogyo.count[i]}`).join(" ")}`);
   lines.push(`節入り：${r.term.name}（${fmtMs(r.term.ms)}）／ 節入り後${r.dayCount}日目`);
   lines.push("", `大運（${r.taiun.forward ? "順行" : "逆行"}・開始${r.taiun.startAgeText}）：`);
   r.taiun.list.forEach(u => lines.push(`　${u.fromAge}歳〜 ${u.kanshi}（${u.tsuhen}・${u.juniun}）`));
